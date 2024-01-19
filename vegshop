@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+        <p>VEG SHOP</p>
+        <label for="fruit">Name:</label>
+        <input type="text" id="fruit" name="fruit" placeholder="ex:fruit">
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" placeholder="0">
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" placeholder="0">
+        <button onclick="addToLocalStorage()">Add To Shop</button>
+        <div id="cart"></div>
+        <button onclick="buyItems()">Buy</button>
+        <button onclick="deleteItems()">Delete</button>
+        <h3 id="total">Total:0</h3>
+    
+
+    <script>
+        function addToLocalStorage(){
+         const name = document.getElementById("fruit").value;
+      const price = document.getElementById("price").value;
+      const quantity = document.getElementById("quantity").value;
+
+      
+      if (name && price && quantity) {
+        const groceryItem = { name, price, quantity };
+        const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
+        existingCart.push(groceryItem);
+        localStorage.setItem('cart', JSON.stringify(existingCart));
+        updateCartDisplay();
+      } else {
+        alert("Please enter all the details.");
+      }
+    }
+        
+    function updateCartDisplay() {
+      const cartDiv = document.getElementById("cart");
+      const cart = JSON.parse(localStorage.getItem('cart'))
+      cartDiv.innerHTML = "";
+      cart.forEach(item => {
+        const itemDiv = document.createElement("div");
+        itemDiv.textContent = `${item.name} - $${item.price} - Quantity: ${item.quantity}`;
+        cartDiv.appendChild(itemDiv);
+      });
+    }
+    function buyItems() {
+        let purchasedCount = parseInt(localStorage.getItem('purchasedCount')) || 0;
+      purchasedCount++;
+      localStorage.setItem('purchasedCount', purchasedCount);
+      localStorage.removeItem('cart');
+      updateCartDisplay();
+      alert(`You have bought ${purchasedCount} items!`);
+    
+    }
+    function deleteItems() {
+    
+      let deletedCount = parseInt(localStorage.getItem('deletedCount')) || 0;
+      deletedCount++;
+      localStorage.setItem('deletedCount', deletedCount);
+      localStorage.removeItem('cart');
+      updateCartDisplay();
+      alert(`You have deleted ${deletedCount} items!`);
+    }
+    updateCartDisplay();
+    </script>
+</body>
+</html>
