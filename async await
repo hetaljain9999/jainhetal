@@ -1,0 +1,34 @@
+const husband = {
+  gotButter: false,
+};
+
+// Promise-based code
+function getButter() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      husband.gotButter = true;
+      console.log("Husband got butter");
+      resolve();
+    }, 2000);
+  });
+}
+
+function getColdDrinks() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log("Got cold drinks");
+      resolve("Cold Drinks");
+    }, 1000);
+  });
+}
+
+// Using Promises
+getButter()
+  .then(() => getColdDrinks())
+  .then((drink) => {
+    console.log(`Husband got ${drink}`);
+  })
+  .catch((error) => console.error(`Error: ${error}`));
+
+// Async/Await-based code
+async functi
