@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Veg Shop</title>
+</head>
+<body>
+
+  <div id="veg">
+    <h2>Veg Shop</h2>
+
+    <div>
+      <label for="name">Name:</label>
+      <input type="text" id="name">
+      
+      <label for="price">Price:</label>
+      <input type="number" id="price">
+      
+      <label for="quantity">Quantity:</label>
+      <input type="number" id="quantity">
+      
+      <button onclick="addToShop()">Add to Shop</button>
+    </div>
+
+    <div id="vegetable-list">
+      <ul id="veggie-list"></ul>
+    </div>
+
+    <div>
+      
+      <input type="number" id="update-quantity">
+      <button onclick="updateQuantity()"></button>
+    </div>
+
+    <div>
+      <button onclick="buyVegetables()">Buy</button>
+      <button onclick="deleteVegetables()">Delete</button>
+    </div>
+  </div>
+
+  <script>
+    let vegetables = [];
+
+    function addToShop() {
+      const name = document.getElementById('name').value;
+      const price = parseFloat(document.getElementById('price').value);
+      const quantity = parseInt(document.getElementById('quantity').value);
+
+      if (name && !isNaN(price) && !isNaN(quantity) && quantity > 0) {
+        const vegetable = { name, price, quantity };
+        vegetables.push(vegetable);
+        updateVegetableList();
+      } else {
+        alert('Please enter valid values for name, price, and quantity.');
+      }
+    }
+
+    function updateVegetableList() {
+      const veggieList = document.getElementById('veggie-list');
+      veggieList.innerHTML = '';
+
+      vegetables.forEach(vegetable => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${vegetable.name}  RS:${vegetable.price}  ${vegetable.quantity}`;
+        veggieList.appendChild(listItem);
+      });
+    }
+
+    function updateQuantity() {
+      const updateQuantityValue = parseInt(document.getElementById('update-quantity').value);
+      if (!isNaN(updateQuantityValue) && updateQuantityValue >= 0) {
+        vegetables.forEach(vegetable => {
+          vegetable.quantity -= updateQuantityValue;
+        });
+        updateVegetableList();
+      } else {
+        alert('Please enter a valid quantity.');
+      }
+    }
+
+    function buyVegetables() {
+      alert('Vegetables bought successfully!');
+      // You can add additional logic for handling the purchase here
+    }
+
+    function deleteVegetables() {
+      vegetables = [];
+      updateVegetableList();
+    }
+  </script>
+
+</body>
+</html>
