@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form onsubmit="saveToStorage(event)">
+        <label>Name:</label>
+        <input type="text" id="username" name="username" required/>
+        <label>Email:</label>
+        <input type="email" id="email" name="email" required/>
+        <label>Phone Number:</label>
+        <input type="tel" id="phonenumber" name="phonenumber">
+        <button>Submit</button>
+
+    </form>
+    <ul id="listOfUsers"></ul>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.7/axios.min.js"></script>
+    <script>
+        function saveToStorage(event){
+            event.preventDefault();
+            const name = event.target.username.value;
+            const email = event.target.email.value;
+            const phonenumber = event.target.phonenumber.value;
+            const obj = {
+                name,
+                email,
+                phonenumber
+            }
+        axios.post("https://crudcrud.com/api/913c722f3b594928bc8dbaf553b1925d/ecommerce", obj)
+        .then((response)=>{
+            console.log(response)
+        })
+        .catch((err)=> console.log(err));
+    
+    }
+    </script>
+</body>
+</html>
