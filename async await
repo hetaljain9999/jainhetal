@@ -31,4 +31,25 @@ getButter()
   .catch((error) => console.error(`Error: ${error}`));
 
 // Async/Await-based code
-async functi
+async function
+
+
+const preMovie = async ()=>{
+const wifeBringTicket = new Promise((resolve,reject)=>{
+setTimeout(()=> resolve('ticket'),3000);
+});
+const getPopcorn  = new Promise((resolve,reject)=> resolve(`popcorn`));
+const getCandy = new Promise((resolve, reject)=>resolve(`candy`));
+const getCoke = new Promise((resolve,reject)=>resolve(`coke`));
+let ticket
+try{
+ticket = await wifeBringTicket;
+}
+catch(e){
+ticket = 'sad face';
+}
+//let popcorn = await getPopcorn;
+let [popcorn, candy, coke] = await Promise.all([getPopcorn, getCandy, getCoke])
+
+return ticket;
+}
